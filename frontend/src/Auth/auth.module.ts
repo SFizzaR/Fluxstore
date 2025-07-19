@@ -6,7 +6,8 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpService } from '../Services/http.service';
 import { RouterModule } from '@angular/router';
-
+import { Toast, ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
     declarations: [
@@ -17,8 +18,13 @@ import { RouterModule } from '@angular/router';
         CommonModule,
         AuthRoutingModule,
         FormsModule,
-        RouterModule
+        RouterModule,
+        ToastModule,
+        Toast
     ],
-    providers: [HttpService],
+    providers: [
+        HttpService,
+        MessageService
+    ],
 })
 export class AuthModule { }

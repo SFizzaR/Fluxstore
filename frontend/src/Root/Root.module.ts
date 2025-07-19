@@ -33,6 +33,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { PaginatorModule } from 'primeng/paginator';
+import { Toast, ToastModule } from 'primeng/toast';
 
 @NgModule({
     declarations: [
@@ -73,7 +74,9 @@ import { PaginatorModule } from 'primeng/paginator';
         DividerModule,
         RadioButton,
         DynamicDialogModule,
-        PaginatorModule
+        PaginatorModule,
+        ToastModule,
+        Toast
     ],
     providers: [
         dataService,

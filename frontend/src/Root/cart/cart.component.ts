@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LocalstoreageService } from '../../Services/localstoreage.service';
 import { dataService } from '../../Services/data.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -11,14 +12,19 @@ import { Router } from '@angular/router';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  constructor(private localstoreage: LocalstoreageService, private dataservice: dataService, private router: Router) { }
+  constructor(
+    private localstoreage: LocalstoreageService,
+    private dataservice: dataService,
+    private router: Router,
+    private messageService: MessageService
+  ) { }
+
   products: any[] = []
   total = 0
+
   ngOnInit() {
     this.products = this.localstoreage.getData('cart') || []
-    console.log(this.products)
     this.total = this.CalculateTotal()
-    console.log(this.total)
     this.dataservice.setTotal(this.total)
   }
 
@@ -63,9 +69,10 @@ export class CartComponent {
 
   handleCheckout() {
     if (this.localstoreage.getData('username') === null) {
-      alert("You need to login first");
-      console.log("Redirecting to login");
-      this.router.navigate(['login']);
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'You need to login first', life: 3000 });
+      setTimeout(() => {
+        this.router.navigate(['login']);
+      }, 400);
       return;
     }
     this.dataservice.setPage('Address')

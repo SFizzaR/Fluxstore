@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LocalstoreageService } from '../../Services/localstoreage.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-details',
@@ -8,7 +9,11 @@ import { LocalstoreageService } from '../../Services/localstoreage.service';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent {
-  constructor(private localstoreage: LocalstoreageService) { }
+  constructor(
+    private localstoreage: LocalstoreageService,
+    private messageService: MessageService
+  ) { }
+
   product: any
 
   ngOnInit(): void {
@@ -16,6 +21,7 @@ export class DetailsComponent {
     this.product.Quantity = this.getQuantity(this.product)
 
   }
+
   getQuantity(item: any): number {
     let cart: any[] = [];
     try {
@@ -34,8 +40,8 @@ export class DetailsComponent {
     else {
       return exists.Quantity
     }
-
   }
+
   updateQuantity(item: any) {
     this.product.Quantity = item.Quantity
   }
@@ -45,7 +51,7 @@ export class DetailsComponent {
     try {
       const storedCart = this.localstoreage.getData('cart');
       if (storedCart.length > 0) {
-        cart = storedCart
+        cart = storedCart;
       }
     } catch (error) {
       console.error('Error parsing cart data:', error);
@@ -53,20 +59,15 @@ export class DetailsComponent {
     }
 
     const exists = cart.find((p: any) => p.Id === item.Id);
-    if (this.product.Quantity === item.Quantity) {
-      this.product.Quantity += 1
-    }
-    if (!exists) {
-      item.Quantity = this.product.Quantity
-      cart.push(item);
-      alert("Added to cart")
-    }
-    else {
-      exists.Quantity = this.product.Quantity
-      alert("Added to cart")
 
+    if (!exists) {
+      item.Quantity = this.product.Quantity || 1; // fallback to 1 if empty
+      cart.push(item);
+    } else {
+      exists.Quantity = this.product.Quantity || 1;
     }
 
     this.localstoreage.saveData('cart', cart);
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Added to Cart', life: 3000 });
   }
 }

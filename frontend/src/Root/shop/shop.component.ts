@@ -3,6 +3,7 @@ import { LocalstoreageService } from '../../Services/localstoreage.service';
 import { Router } from '@angular/router';
 import { dataService } from '../../Services/data.service';
 import { HttpService } from '../../Services/http.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-shop',
@@ -11,22 +12,26 @@ import { HttpService } from '../../Services/http.service';
   styleUrl: './shop.component.css'
 })
 export class ShopComponent {
-  constructor(private localstoreage: LocalstoreageService, private router: Router, private dataservice: dataService, private httpService: HttpService) { }
+  constructor(
+    private localstoreage: LocalstoreageService,
+    private router: Router,
+    private dataservice: dataService,
+    private httpService: HttpService,
+    private messageService: MessageService
+  ) { }
 
   products: any[] = []
 
   ngOnInit(): void {
     this.httpService.getAllProducts().subscribe((x: any) => {
-      console.log(x)
       this.products = x
     }, (err: any) => {
-      alert('Something Went Wrong, Please Try again after sometime')
+      this.messageService.add({ severity: 'error', summary: 'error', detail: 'Something Went Wrong, Please Try again after sometime...', life: 3000 });
       console.log(err)
     })
-
   }
-  toggleCart(product: any) {
 
+  toggleCart(product: any) {
     let cart: any[] = [];
     try {
       const storedCart = this.localstoreage.getData('cart');
@@ -37,19 +42,16 @@ export class ShopComponent {
       console.error('Error parsing cart data:', error);
       cart = [];
     }
-
     const exists = cart.find((p: any) => p.Id === product.Id);
     if (!exists) {
       product.Quantity = 1
       cart.push(product);
-      alert("Added to cart")
+      this.messageService.add({ severity: 'success', summary: 'success', detail: 'Added to Cart', life: 3000 });
     }
     else {
       exists.Quantity += 1
-      alert("Added to cart")
-
+      this.messageService.add({ severity: 'success', summary: 'success', detail: 'Added to Cart', life: 3000 });
     }
-
     this.localstoreage.saveData('cart', cart);
   }
 

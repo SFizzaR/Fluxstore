@@ -9,22 +9,23 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class TrackOrderComponent {
   order: any;
+  public counts = ["Order Placed", "Order Packed", "Out for delivery", "Delivered"];
+  public orderStatus = 0
+
   constructor(
     public config: DynamicDialogConfig,
     public ref: DynamicDialogRef
   ) {
     this.order = this.config.data.product;
   }
-  close() {
-    this.ref.close();
-  }
-  public counts = ["Order Placed", "Order Packed", "Out for delivery", "Delivered"];
 
-
-  public orderStatus = 0
   ngOnInit(): void {
     this.orderStatus = this.order.Status - 1
     console.log(this.orderStatus)
 
+  }
+
+  close() {
+    this.ref.close();
   }
 }

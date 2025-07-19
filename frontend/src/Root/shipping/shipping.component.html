@@ -1,4 +1,5 @@
 <div class="main row">
+    <p-toast />
     <div *ngIf="!showForm && !showPayment" class="flex flex-col gap-3">
         <!-- Existing Addresses -->
         <div *ngFor="let address of storedAddresses; let i = index" class="flex items-center gap-2">

@@ -3,6 +3,7 @@ import { LocalstoreageService } from '../../Services/localstoreage.service';
 import { Router } from '@angular/router';
 import { dataService } from '../../Services/data.service';
 import { HttpService } from '../../Services/http.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-shipping',
@@ -11,8 +12,15 @@ import { HttpService } from '../../Services/http.service';
   styleUrl: './shipping.component.css'
 })
 export class ShippingComponent {
+  constructor(
+    private localstoreage: LocalstoreageService,
+    private router: Router,
+    private dataservice: dataService,
+    private httpSerivce: HttpService,
+    private messageService: MessageService
+  ) { }
+
   size: any = false;
-  constructor(private localstoreage: LocalstoreageService, private router: Router, private dataservice: dataService, private httpSerivce: HttpService) { }
   items = 0
   total = 0
   products: any[] = []
@@ -36,7 +44,6 @@ export class ShippingComponent {
     Zip: '',
     PhoneNumber: '',
   }
-
   paymentDetails = {
     CardNumber: '',
     HolderName: ''
@@ -46,6 +53,7 @@ export class ShippingComponent {
   storedAddresses: any[] = []
   showForm = false
   showPayment = false
+
   ngOnInit(): void {
     this.products = this.localstoreage.getData('cart') || []
     this.items = this.getItems()
@@ -55,22 +63,19 @@ export class ShippingComponent {
       console.log(x)
       this.storedAddresses = x
     }, (err: any) => {
-      alert('Something Went Wrong, Please Try again after sometime')
+      this.messageService.add({ severity: 'error', summary: 'error', detail: 'Something Went Wrong, Please Try again after sometime', life: 3000 });
       console.log(err)
     }
     )
-
   }
 
   onCountryChange() {
     this.availableStates = this.states[this.shippingAddress.Country as keyof typeof this.states] || [];
   }
 
-
   getItems(): number {
     return this.products.length
   }
-
 
   placeOrder = (cardId: number) => {
     this.httpSerivce.AddAddress(this.shippingAddress).subscribe({
@@ -92,34 +97,35 @@ export class ShippingComponent {
 
                 Promise.all(requests)
                   .then(() => {
-                    alert("Your order has been placed successfully!");
+                    this.messageService.add({ severity: 'success', summary: 'success', detail: 'Your order has been placed successfully!', life: 3000 });
                     this.localstoreage.saveData('cart', []);
                     this.dataservice.setPage('Orders')
-                    this.router.navigate(['/root/orders']);
+                    setTimeout(() => {
+                      this.router.navigate(['root/orders']);
+                    }, 400);
                   })
                   .catch(err => {
                     console.error(err);
-                    alert("Error adding products to order. Please try again.");
+                    this.messageService.add({ severity: 'error', summary: 'error', detail: 'Error adding products to order. Please try again.', life: 3000 });
                   });
               } else {
-                alert(orderRes.message || "Unexpected error while placing order.");
+                this.messageService.add({ severity: 'error', summary: 'error', detail: orderRes.message || "Unexpected error while placing order.", life: 3000 });
               }
             },
             error: (err: any) => {
               console.error(err);
-              alert("Something went wrong. Please try again later.");
+              this.messageService.add({ severity: 'error', summary: 'error', detail: "Something went wrong. Please try again later.", life: 3000 });
             }
           });
         }
       }, error: (err: any) => {
         console.error(err);
-        alert("Something went wrong. Please try again later.");
+        this.messageService.add({ severity: 'error', summary: 'error', detail: "Something went wrong. Please try again later.", life: 3000 });
       }
     })
   }
-  OnSubmit() {
-    console.log(this.size);
 
+  OnSubmit() {
     if (this.selectedAddress !== null) {
       this.shippingAddress = this.selectedAddress
     }
@@ -128,38 +134,33 @@ export class ShippingComponent {
       !this.shippingAddress.Country || !this.shippingAddress.City || !this.shippingAddress.State ||
       !this.shippingAddress.PhoneNumber
     ) {
-      alert("Required fields are missing");
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: "Required fields are missing", life: 3000 });
       return;
     }
-
-
     if (!this.size) {
-      alert("Select a payment method");
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: "Select a payment method", life: 3000 });
       return;
     }
-
     if (this.size === "2") {
       if (!this.paymentDetails.CardNumber || !this.paymentDetails.HolderName) {
-        alert("Payment details are missing");
+        this.messageService.add({ severity: 'warn', summary: 'warn', detail: "Payment details are missing", life: 3000 });
         return;
       }
     }
-
     if (this.shippingAddress.PhoneNumber.length !== 11) {
-      alert("Phone number format not valid");
+      this.messageService.add({ severity: 'error', summary: 'error', detail: "Phone number format not valid", life: 3000 });
       return;
     }
     if (this.size === "2") {
       const fullCardNumber = this.paymentDetails.CardNumber.replace(/\s+/g, ''); // remove spaces
       const last4Digits = fullCardNumber.slice(-4);
-      console.log(last4Digits)
       this.httpSerivce.AddCard({ HolderName: this.paymentDetails.HolderName, CardNumberLast4: last4Digits }).subscribe((x: any) => {
         if (x.statuscode === 201 && x.Id) {
           console.log(x.Id)
           this.placeOrder(x.Id)
         }
         else {
-          alert("Error saving card details")
+          this.messageService.add({ severity: 'error', summary: 'error', detail: "Error saving card details", life: 3000 });
         }
       })
     }
@@ -173,10 +174,9 @@ export class ShippingComponent {
       this.showForm = true
       this.showPayment = true
     } else if (this.selectedAddress) {
-      console.log('Selected Address:', this.selectedAddress);
       this.showPayment = true
     } else {
-      alert("Please select an address or add a new one.");
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: "Please select an address or add a new one.", life: 3000 });
     }
   }
 
