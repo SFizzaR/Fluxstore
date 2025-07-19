@@ -1,0 +1,47 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 80vh;
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+}
+
+img {
+    height: 210px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button {
+    background-color: rgb(55, 81, 230);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 4px 8px 0 lightblue, 0 6px 20px 0 rgb(181, 214, 224);
+}
+
+.company {
+    color: rgb(55, 81, 230);
+}

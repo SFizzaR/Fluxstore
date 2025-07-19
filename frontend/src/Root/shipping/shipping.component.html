@@ -1,0 +1,137 @@
+<div class="main row">
+    <div *ngIf="!showForm && !showPayment" class="flex flex-col gap-3">
+        <!-- Existing Addresses -->
+        <div *ngFor="let address of storedAddresses; let i = index" class="flex items-center gap-2">
+            <p-radioButton name="addressGroup" [value]="address" [(ngModel)]="selectedAddress" inputId="address{{i}}">
+            </p-radioButton>
+            <label [for]="'address' + i" class="text-sm text-gray-700">
+                {{ address.FirstName }} {{ address.LastName }}, {{ address.Address }},
+                {{ address.City }}, {{ address.State }}
+            </label>
+        </div>
+
+        <!-- Add New Address Option -->
+        <div class="flex items-center gap-2">
+            <p-radioButton name="addressGroup" [value]="null" [(ngModel)]="selectedAddress" inputId="newAddress">
+            </p-radioButton>
+            <label for="newAddress" class="text-sm text-gray-700">Add new address</label>
+        </div>
+        <p-button label="Select Address" (click)="handleShipping()">
+        </p-button>
+    </div>
+    <div class="container-sm  col-md-6" *ngIf="showForm">
+        <h4 style="text-align: left; ">Shipping Address</h4>
+        <div style="background-color: #d1d9e2; margin: 10px; padding: 10px; border-radius: 10px;">
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">First Name*</label>
+                    <input type="text" class="form-control" [(ngModel)]="shippingAddress.FirstName" name="firstname"
+                        id="firstName" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">Last Name*</label>
+                    <input type="text" class="form-control" [(ngModel)]="shippingAddress.LastName" name="lastname"
+                        id="lastName" required>
+                </div>
+                <div class="col-6">
+                    <label for="inputAddress" class="form-label">Address*</label>
+                    <input type="text" class="form-control" [(ngModel)]="shippingAddress.Address" name="address"
+                        id="inputAddress" placeholder="1234 Main St" required>
+                </div>
+                <div class="col-6">
+                    <label for="inputAddress2" class="form-label">Address 2</label>
+                    <input type="text" class="form-control" [(ngModel)]="shippingAddress.Address2" name="address2"
+                        id="inputAddress2" placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="col-6">
+                    <label for="inputContry" class="form-label">Country*</label>
+                    <select id="inputContry" class="form-select" [(ngModel)]="shippingAddress.Country" name="country"
+                        (change)="onCountryChange()" required>
+                        <option value="" disabled selected>Select a country</option>
+                        <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">City*</label>
+                    <input type="text" class="form-control" [(ngModel)]="shippingAddress.City" name="city"
+                        id="inputCity" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">State*</label>
+                    <select id="inputState" class="form-select" [(ngModel)]="shippingAddress.State" name="state"
+                        required>
+                        <option value="" disabled selected>Select a state</option>
+                        <option *ngFor="let state of availableStates" [value]="state">{{ state }}</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" [(ngModel)]="shippingAddress.Zip" name="zip" id="inputZip">
+                </div>
+                <div class="col-12">
+                    <label for="inputPhone" class="form-label">Phone*</label>
+                    <input type="tel" class="form-control" [(ngModel)]="shippingAddress.PhoneNumber" name="phonenumber"
+                        id="inputPhone" required>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="container-sm col-md-6" *ngIf="showPayment">
+        <h4>Payment Details</h4>
+        <div style="background-color: #d1d9e2; margin: 10px; padding: 10px; border-radius: 10px;">
+
+            <p>Select Payment Method</p>
+
+            <div class="flex flex-wrap gap-4">
+
+                <div class="flex items-center gap-2">
+                    <p-radiobutton [(ngModel)]="size" inputId="size_normal" name="size" value="1" />
+                    <label for="size_normal">COD</label>
+                </div>
+                <div class="flex items-center gap-2">
+                    <p-radiobutton [(ngModel)]="size" inputId="size_normal" name="size" value="2" />
+                    <label for="size_normal">Card</label>
+                </div>
+            </div>
+            <div>
+                <div *ngIf="size==1">
+                    <p>Expected Time Of Delivery is With in 3-4 working days</p>
+                    <p>Please get exact amount of cash with respect to your billed amount ready at time of delivery</p>
+
+                </div>
+                <div *ngIf="size==2">
+                    <form class="row g-3">
+                        <div class="col-md-6">
+                            <label for="CardHolderName" class="form-label">Card Holder Name*</label>
+                            <input type="text" class="form-control" id="CardHolderName"
+                                [(ngModel)]="paymentDetails.HolderName" name="holdername" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="CardNumber" class="form-label">Card Number*</label>
+                            <input type="text" class="form-control" id="CardNumber"
+                                [(ngModel)]="paymentDetails.CardNumber" name="cardNumber" required>
+                        </div>
+                        <label>
+                            <input type="checkbox" />
+                            Save card details for future payments
+                        </label>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div style="display:flex;  flex-direction: column; ">
+            <div
+                style="display:flex; flex-direction: row; align-items:  center; justify-content: space-around; width: 100%;">
+
+
+                <p-button (click)="OnSubmit()">Confirm order</p-button>
+
+                <p-button (click)="toggle()">Change Address</p-button>
+            </div>
+            <p *ngIf="showForm">* required fields</p>
+        </div>
+    </div>
+
+</div>

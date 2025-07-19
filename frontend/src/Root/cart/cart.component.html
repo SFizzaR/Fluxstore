@@ -1,0 +1,57 @@
+<div class="main">
+    <p-dataview #dv [value]="getProducts()" [scrollTop]="true" class="w-full">
+        <ng-template #list let-items>
+            <div class="col-span-12" *ngFor="let item of items; let first = first">
+                <div class="card">
+                    <div class="flex flex-row items-center w-full  rounded ">
+                        <!-- Image -->
+                        <div class="md:w-40 relative"
+                            style="width: 250px; height: 170px; overflow: hidden; border-radius: 8px;">
+                            <img class="block mx-auto rounded h-10 w-auto object-cover" [src]="item.Image_url"
+                                [alt]="item.Name" style="height: 100%; width: 100%;" />
+                        </div>
+                        <!-- Content -->
+                        <div class="flex flex-col justify-between flex-1">
+                            <span class="bold">{{ item.Name }}</span>
+
+                            <!-- Total in one line -->
+                            <p class="text-base text-gray-700 mt-1">
+                                <span>Price: <span class="font-semibold">{{ item.Price | currency }}</span></span>
+                                &nbsp;·&nbsp;
+
+                                <span>Total:
+                                    <span class="font-semibold">{{ (item.Price * item.Quantity) | currency }}</span>
+                                </span>
+                            </p>
+
+                            <!-- Quantity + Remove -->
+                            <div class="flex flex-row items-center gap-4 mt-2 justify-between">
+                                <p-inputnumber [(ngModel)]="item.Quantity" [showButtons]="true"
+                                    buttonLayout="horizontal" inputId="quantity-{{ item.id }}" spinnerMode="horizontal"
+                                    [step]="1" (onInput)="updateQuantity(item)">
+                                    <ng-template #incrementbuttonicon style="background-color: white;">
+                                        <span class="pi pi-plus"></span>
+                                    </ng-template>
+                                    <ng-template #decrementbuttonicon style="background-color: white;">
+                                        <span class="pi pi-minus"></span>
+                                    </ng-template>
+                                </p-inputnumber>
+
+                                <button pButton type="button" label="Remove" class="p-button-danger p-button-sm"
+                                    (click)="removeItem(item)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataview>
+    <div class="flex flex-row gap-2 justify-center mt-4">
+        <p><span class="bold">Total:</span> ${{ total }}</p>
+    </div>
+    <div class="buttons">
+        <button class="button-1" (click)="returnToShop()"><i class="pi pi-angle-left"></i>Back to shop</button>
+        <button class="button-2" (click)="handleCheckout()">Proceed to Checkout<i
+                class="pi pi-angle-right"></i></button>
+    </div>
+</div>

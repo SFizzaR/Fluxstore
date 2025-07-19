@@ -1,0 +1,53 @@
+.circles {
+    height: 15px;
+    width: 15px;
+    border: 3px solid #000;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+.circles.active {
+    background-color: #ffa500;
+}
+
+.circle-desc {
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 4px;
+    text-align: center;
+    max-width: 150px;
+    word-wrap: break-word;
+}
+
+.circle-desc-active {
+    font-weight: bold;
+    color: #ffa500;
+}
+
+.bar {
+    width: 50px;
+    height: 2px;
+    background-color: #000;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 6px;
+}
+
+/* RESPONSIVE TEXT ONLY FOR TRACKER AREA, NOT GLOBAL BODY */
+.order-status-tracker {
+    font-size: 0.9rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .order-status-tracker {
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .order-status-tracker {
+        font-size: 0.7rem;
+    }
+}

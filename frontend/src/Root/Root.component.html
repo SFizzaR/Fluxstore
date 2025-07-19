@@ -1,0 +1,12 @@
+<div class="parent-container">
+    <app-header (toggledChange)="handleToggle($event)"></app-header>
+    <div class="main">
+        <div class="sidenav">
+            <app-navbar *ngIf="showSidenav"></app-navbar>
+        </div>
+        <div class="main-container">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

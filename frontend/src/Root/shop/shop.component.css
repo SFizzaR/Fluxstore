@@ -1,0 +1,68 @@
+.image {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.product-container {
+    position: relative;
+    /* make it the positioning context */
+    width: 260px;
+    min-height: 340px;
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.product-container:hover {
+    transform: scale(1.05);
+    /* enlarges by 5% */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.main {
+    padding-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* so they align at the top */
+    overflow-y: auto;
+    /* scrollbar only when needed */
+    height: calc(100vh - 60px);
+    /* prevent overflow beyond viewport */
+    padding-bottom: 1rem;
+}
+
+.products-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    /* allow wrapping */
+    justify-content: center;
+    gap: 1rem;
+    /* space between product cards */
+    max-width: 1200px;
+    /* optional: constrain max width */
+}
+
+.name {
+    color: rgb(62, 104, 241);
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button {
+    background-color: rgb(55, 81, 230);
+    border: none;
+    border-radius: 5px;
+    color: white;
+}

@@ -1,0 +1,6 @@
+::ng-deep .p-drawer-left .p-drawer {
+    align-self: start;
+    width: 15rem;
+    height: 100%;
+    border-right-width: 1px;
+}

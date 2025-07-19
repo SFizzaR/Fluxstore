@@ -1,0 +1,55 @@
+.header {
+    width: 100%;
+    background: #0000FF;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.welcome {
+    color: white;
+}
+
+.profile-button-container {
+    justify-content: end;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /* fixed */
+    margin-right: 60px;
+}
+
+.profile-button {
+    color: #fff;
+    background-color: #0000FF;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    /* added */
+}
+
+.profile-button:hover {
+    background-color: #00000c56;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+p-overlaybadge {
+    margin-right: 10px;
+}
+
+i {
+    margin-right: 10px;
+}
+
+li {
+    list-style: none;
+    margin-left: 10px;
+    color: #fff;
+}

@@ -1,0 +1,23 @@
+<div style="display: flex; flex-direction: column;">
+    <div style="display: flex; flex-direction: row;">
+        <div style="display: flex; flex-direction: column;">
+            <h5>{{order.orderid}}</h5>
+            <h6>${{order.Total}}</h6>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="container" *ngIf="orderStatus !== 3 ">
+        <span *ngFor="let item of counts; let i = index">
+            <span class="circles" [class.active]="orderStatus === i"></span>
+            <span class="circle-desc" [class.circle-desc-active]="orderStatus === i">{{ item }}</span>
+            <span class="bar" *ngIf="(i != counts.length-1)"></span>
+        </span>
+    </div>
+    <div *ngIf="orderStatus === 3" class="container" style="display:flex; justify-content: center; width: 100%;">
+        <h5>This order has been cancelled</h5>
+    </div>
+    <div style="display: flex; width: 100%; justify-content: end;">
+        <p-button (click)="close()" severity="danger">Close</p-button>
+    </div>
+</div>

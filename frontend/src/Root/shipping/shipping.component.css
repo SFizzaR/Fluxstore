@@ -1,0 +1,12 @@
+.main {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.header {
+    text-align: left;
+    width: 100%;
+}

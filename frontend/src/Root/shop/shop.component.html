@@ -1,0 +1,15 @@
+<main>
+    <div class="main">
+        <div class="products-wrapper">
+            <div class="product-container" *ngFor="let product of products">
+                <img [src]="product.Image_url" class="image">
+                <h3 class="name">{{ product.Name }}</h3>
+                <p><span>Price: </span> ${{ product.Price }}</p>
+                <div class="buttons">
+                    <button (click)="toggleCart(product)" style="cursor: pointer;">Add to Cart</button>
+                    <button style="cursor: pointer;" (click)="ViewDetails(product)">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

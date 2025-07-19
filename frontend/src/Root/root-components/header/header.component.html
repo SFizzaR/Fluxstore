@@ -1,0 +1,26 @@
+<header class="header">
+    <div class="title-container">
+        <app-navbar></app-navbar>
+        <p class="welcome">{{Page}}</p>
+    </div>
+    <div *ngIf="username !== ''" class="profile-button-container">
+        <p-overlaybadge *ngIf="items > 0" [value]="items" badgeSize="small" severity="danger">
+            <i class="pi pi-shopping-cart mr-2" (click)="handleCart()" style="cursor: pointer; color: white;"></i>
+        </p-overlaybadge>
+        <i *ngIf="items === 0" class="pi pi-shopping-cart mr-2" (click)="handleCart()"
+            style="cursor: pointer; color: white;"></i>
+        <p-avatar icon="pi pi-user" class="mr-2" size="normal" shape="circle" />
+        <button class="profile-button" mat-button [matMenuTriggerFor]="menu">{{username}}</button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="handleOrderPage()">My Orders</button>
+            <button mat-menu-item (click)="logOut()">Logout</button>
+        </mat-menu>
+
+    </div>
+    <div *ngIf="username === ''" class="profile-button-container">
+        <ul style="display: flex; flex-direction: row; justify-content: space-between;">
+            <li (click)="handleLogin()" style="cursor: pointer; text-decoration: underline;">Login</li>
+            <li (click)="handleSignUp()" style="cursor: pointer; text-decoration: underline;">SignUp</li>
+        </ul>
+    </div>
+</header>

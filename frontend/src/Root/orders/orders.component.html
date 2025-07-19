@@ -1,0 +1,40 @@
+<div class="main">
+    <div style="background-color: #e7e9eb69; border-radius: 10px;  width: 100%;">
+        <ul class="nav-bar">
+            <li *ngFor="let status of statuses" [class.active]="status === selectedStatus"
+                (click)="onStatusSelect(status)" style="cursor: pointer;">
+                {{ status }}
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <div *ngIf="filterOrders.length === 0" style="display: flex; align-items: center; justify-content: center;">
+            <p>No Orders found</p>
+        </div>
+        <div class="products-wrapper">
+            <div class="product-container" *ngFor="let order of paginatedOrders()">
+
+                <h2 class="text-lg font-semibold mb-2">Order ID: {{ order.orderid }}</h2>
+                <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+                    <li *ngFor="let item of order.items">
+                        {{ item.productname }} - Quantity: {{ item.Quantity }}
+                    </li>
+                </ul>
+
+                <div class="mt-3 text-right text-sm text-gray-600">
+                    Total:
+                    <span class="font-semibold text-gray-800">{{ order.Total | currency }}</span>
+                </div>
+
+                <p-button *ngIf="checkStatus(order.Status) === 'On Shipping' " (click)="show(order)">Track
+                    order</p-button>
+
+            </div>
+            <div class="card flex justify-center" *ngIf="filterOrders.length > 0">
+                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+                    [totalRecords]="filterOrders.length" [rowsPerPageOptions]="[10, 20, 30]" />
+            </div>
+        </div>
+
+    </div>
+</div>

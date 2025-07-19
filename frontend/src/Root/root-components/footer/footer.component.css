@@ -1,0 +1,21 @@
+.main {
+    width: 100%;
+    background: #0000FF;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    top: calc(100vh - 1.5rem);
+    z-index: 2;
+    position: fixed;
+}
+
+.icons {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.icon {
+    height: 1em;
+    margin: 5px;
+}

@@ -1,0 +1,73 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    min-height: 100%;
+    padding-bottom: 2rem;
+    flex-direction: column;
+    min-width: 100%;
+}
+
+.card {
+    width: 100%;
+    max-height: 100%;
+    padding: 15px;
+    background-color: #e7e9eb;
+}
+
+button {
+    background-color: rgb(55, 81, 230);
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 80%;
+    align-items: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+:host ::ng-deep .flex.flex-row.items-center.gap-4.mt-2.justify-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+:host ::ng-deep .col-span-12.ng-star-inserted {
+    margin-bottom: 10px;
+}
+
+:host ::ng-deep .p-inputnumber-button.p-inputnumber-increment-button.ng-star-inserted {
+    background-color: white;
+}
+
+:host ::ng-deep .p-inputnumber-button.p-inputnumber-decrement-button.ng-star-inserted {
+    background-color: white;
+}
+
+:host ::ng-deep .flex.flex-row.items-center.w-full.rounded {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.button-1 {
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 50px;
+}
+
+.button-2 {
+    background-color: rgb(55, 81, 230);
+    color: white;
+    border-radius: 20px;
+    padding: 5px 50px;
+}

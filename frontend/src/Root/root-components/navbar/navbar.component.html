@@ -1,0 +1,83 @@
+<div class="card flex justify-content-center">
+    <p-sidebar #sidebarRef [(visible)]="sidebarVisible" styleClass="w-10rem">
+        <ng-template pTemplate="headless">
+            <div class="flex flex-column h-full">
+                <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
+                    <span class="inline-flex align-items-center gap-2">
+                        <div class="rounded-xl p-2"
+                            style="width: 40px; height: 40px; background-color: #476eec; border-radius: 20px;">
+                            <i class="pi pi-shop" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <span class="font-semibold text-2xl text-primary">FluxStore</span>
+                    </span>
+                    <span>
+
+                        <p-button type="button" (onClick)="closeCallback($event)" icon="pi pi-times" rounded="true"
+                            outlined="true" styleClass="h-2rem w-2rem"></p-button>
+                    </span>
+                </div>
+                <div class="overflow-y-auto">
+                    <ul class="list-none p-3 m-0">
+                        <li>
+                            <ul class="list-none p-0 m-0 overflow-hidden gap-y-8">
+                                <li>
+                                    <a class="flex align-items-center border-round text-700" style="cursor: pointer"
+                                        (click)="handleShop()">
+                                        <i class="pi pi-shopping-bag mr-2"></i>
+                                        <span class="font-medium">Shop</span>
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a class="flex align-items-center border-round text-700" style="cursor: pointer;"
+                                        (click)="handleCart()">
+                                        <i class="pi pi-shopping-cart mr-2"></i>
+                                        <span class="font-medium">Your Cart</span>
+                                    </a>
+                                </li>
+                                <li *ngIf="username !== ''">
+                                    <a class="flex align-items-center border-round text-700" style="cursor: pointer;"
+                                        (click)="handleOrderPage()">
+                                        <i class="pi pi-cart-arrow-down mr-2"></i>
+                                        <span class="font-medium">Your Orders</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="username !== ''" class="mt-auto">
+                    <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
+                    <a
+                        class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                        <p-avatar icon="pi pi-user" shape="circle" />
+                        <span class="font-bold">{{username}}</span>
+                    </a>
+                </div>
+                <div class="p-4 text-start flex m-10">
+                    <p class="text-lg font-semibold text-primary">Contact Us</p>
+                    <p class="text-sm text-700">support&#64;fluxstore.com</p>
+                </div>
+                <div *ngIf="username === ''" class="mt-auto">
+                    <ul class="list-none p-0 m-0 overflow-hidden gap-y-8">
+                        <li>
+                            <a class="flex align-items-center border-round text-700" style="cursor: pointer"
+                                (click)="handleLogin()">
+                                <span class="font-medium">Login</span>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a class="flex align-items-center border-round text-700" style="cursor: pointer;"
+                                (click)="handleSignUp()">
+                                <span class="font-medium">SignUp</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </ng-template>
+    </p-sidebar>
+    <p-button (onClick)="sidebarVisible = true" icon="pi pi-align-justify" severity="secondary"></p-button>
+</div>
