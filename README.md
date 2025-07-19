@@ -4,12 +4,12 @@ Fluxstore is an **e-commerce website** built during my internship, where I learn
 
 ## ✨ Features
 
-✅ User Authentication (Login, Sign Up)
-✅ Product Browsing & Details View
-✅ Shopping Cart & Shipping Flow
-✅ Order Placement & Tracking
-✅ Clean, Responsive Angular UI
-✅ Modular NestJS Backend with MySQL
+- User Authentication (Login, Sign Up)
+- Product Browsing & Details View
+- Shopping Cart & Shipping Flow
+- Order Placement & Tracking
+- Clean, Responsive Angular UI
+- Modular NestJS Backend with MySQL
 
 
 ## 📸 Screenshots
