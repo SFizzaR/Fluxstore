@@ -1,5 +1,6 @@
 <main>
     <p-toast />
+
     <div class="main">
         <div class="products-wrapper">
             <div class="product-container" *ngFor="let product of products">
@@ -12,5 +13,6 @@
                 </div>
             </div>
         </div>
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="total" />
     </div>
 </main>

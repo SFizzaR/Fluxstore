@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { dataService } from '../../Services/data.service';
 import { HttpService } from '../../Services/http.service';
 import { MessageService } from 'primeng/api';
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'app-shop',
@@ -21,14 +22,15 @@ export class ShopComponent {
   ) { }
 
   products: any[] = []
+  page_number: number = 1
+  rows: number = 8;
+  first: number = 0
+  total: number = 0
 
   ngOnInit(): void {
-    this.httpService.getAllProducts().subscribe((x: any) => {
-      this.products = x
-    }, (err: any) => {
-      this.messageService.add({ severity: 'error', summary: 'error', detail: 'Something Went Wrong, Please Try again after sometime...', life: 3000 });
-      console.log(err)
-    })
+
+    this.paginatedOrders();
+
   }
 
   toggleCart(product: any) {
@@ -67,5 +69,30 @@ export class ShopComponent {
     this.localstoreage.saveData('product', product);
     this.dataservice.setPage('Details')
     this.router.navigate(['/root/details'])
+  }
+
+  paginatedOrders() {
+    this.httpService.getAllProducts({ pagenumber: this.page_number, pagesize: 8 }).subscribe(
+      {
+        next: (data: any) => {
+          this.products = data[1];
+          this.total = data[0][0].total;
+          console.log('Products fetched successfully:', this.products);
+          console.log(this.total)
+        },
+        error: (error) => {
+          console.error('Error fetching products:', error);
+        }
+      }
+    )
+
+  }
+
+
+  onPageChange(event: PaginatorState) {
+    this.first = event.first ?? 0;
+    this.rows = event.rows ?? 8;
+    this.page_number = Math.floor(this.first / this.rows) + 1;
+    this.paginatedOrders();
   }
 }

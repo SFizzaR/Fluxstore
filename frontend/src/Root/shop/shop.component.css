@@ -27,16 +27,17 @@
 }
 
 .main {
-    padding-top: 60px;
+    padding-top: 200px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     /* so they align at the top */
     overflow-y: auto;
     /* scrollbar only when needed */
     height: calc(100vh - 60px);
     /* prevent overflow beyond viewport */
     padding-bottom: 1rem;
+    flex-direction: column;
 }
 
 .products-wrapper {
