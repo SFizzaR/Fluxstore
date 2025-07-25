@@ -15,12 +15,11 @@ export class ProductsController {
   @Get('getAllProducts')
   findAll(
     @Query('pagenumber') pagenumber: number,
-    @Query('pagesize') pagesize: number,
-    @Query('term') term: string
+    @Query('pagesize') pagesize: number
   ) {
     Number(pagenumber),
       Number(pagesize)
-    return this.productsService.findAll(pagenumber, pagesize, term);
+    return this.productsService.findAll(pagenumber, pagesize);
   }
   @Get(':id')
   findOne(@Param('id') id: number) {
