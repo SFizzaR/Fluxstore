@@ -15,8 +15,9 @@ export class HttpService {
   signup(data: any) {
     return this.http.post(`${this.baseurl}users/register`, data);
   }
-  getAllProducts() {
-    return this.http.get(`${this.baseurl}products/getAll`)
+  
+ getAllProducts(data: any) {
+    return this.http.get(`${this.baseurl}products/getAllProducts`, { params: data })
   }
 
   AddOrder(data: any) {
