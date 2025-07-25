@@ -1,6 +1,6 @@
 # 🛒 Fluxstore
 
-Fluxstore is an **e-commerce website** built during my internship, where I learned **Angular (non-standalone)** for the frontend and **NestJS** for the backend. This project was a **foundational full-stack learning experience**, covering authentication, modular UI design, backend API handling, and database integration.
+Fluxstore is an **e-commerce website** built during my internship, where I learned **Angular (modular structure)** for the frontend and **NestJS** for the backend. This project was a **foundational full-stack learning experience**, covering authentication, modular UI design, backend API handling, and database integration.
 
 ## ✨ Features
 
