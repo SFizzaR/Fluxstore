@@ -24,8 +24,15 @@ export class ProductsService {
     }
   }
 
-  async findAll(): Promise<Product[]> {
-    return this.productRepository.find();
+    @Get('getAllProducts')
+  findAll(
+    @Query('pagenumber') pagenumber: number,
+    @Query('pagesize') pagesize: number,
+    @Query('term') term: string
+  ) {
+    Number(pagenumber),
+      Number(pagesize)
+    return this.productsService.findAll(pagenumber, pagesize, term);
   }
 
   async findOne(id: number): Promise<Product> {
