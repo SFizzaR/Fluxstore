@@ -24,15 +24,12 @@ export class ProductsService {
     }
   }
 
-    @Get('getAllProducts')
-  findAll(
-    @Query('pagenumber') pagenumber: number,
-    @Query('pagesize') pagesize: number,
-    @Query('term') term: string
-  ) {
-    Number(pagenumber),
-      Number(pagesize)
-    return this.productsService.findAll(pagenumber, pagesize, term);
+    async findAll(pagenumber: number, pagesize: number, term: string): Promise<Product[]> {
+    const res = await this.datasource.query(
+      `CALL FetchPaginatedProducts(?, ?, ?)`,
+      [pagesize, pagenumber, term]
+    );
+    return res
   }
 
   async findOne(id: number): Promise<Product> {
