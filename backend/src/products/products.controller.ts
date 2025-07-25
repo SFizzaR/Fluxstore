@@ -12,11 +12,16 @@ export class ProductsController {
     return await this.productsService.create(createProductDto);
   }
 
-  @Get('getAll')
-  findAll() {
-    return this.productsService.findAll();
+  @Get('getAllProducts')
+  findAll(
+    @Query('pagenumber') pagenumber: number,
+    @Query('pagesize') pagesize: number,
+    @Query('term') term: string
+  ) {
+    Number(pagenumber),
+      Number(pagesize)
+    return this.productsService.findAll(pagenumber, pagesize, term);
   }
-
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.productsService.findOne(+id);
